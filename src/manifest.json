@@ -2,22 +2,14 @@
   "manifest_version": 3,
   "name": "Ludus Helper",
   "version": "1.0",
+  "type": "module",
   "description": "A Chrome extension for Ludus Help.",
   "permissions": ["sidePanel", "activeTab", "scripting", "storage"],
-  "action": {
-    "default_icon": {
-      "16": "icons/icon-16.png",
-      "48": "icons/icon-48.png",
-      "128": "icons/icon-128.png"
-    },
-    "default_title": "Open Side Panel",
-    "default_panel": "sidepanel/index.html"
-  },
   "side_panel": {
-    "default_path": "sidepanel.html"
+    "default_path": "src/sidepanel/index.html"
   },
   "background": {
-    "service_worker": "background/service-worker.js"
+    "service_worker": "src/background/service-worker.js"
   },
   "icons": {
     "16": "icons/icon-16.png",

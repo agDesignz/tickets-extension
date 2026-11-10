@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>My Side Panel</title>
-    <link rel="stylesheet" href="sidepanel.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ludus HT Helper</title>
   </head>
   <body>
     <div class="sidepanel-container">
@@ -11,7 +11,7 @@
         <figure>
           <img
             class="sidepanel-logo"
-            src="./icons/icon-48.png"
+            src="/icons/icon-48.png"
             alt="History-Theatre-Ludus hybrid symbol."
           />
         </figure>
@@ -24,13 +24,32 @@
           <p id="tab-url">Loading...</p>
         </div>
 
-        <button id="ludus-btn" id="sort-price-points">
-          Arrange Price-Points
-        </button>
-        <p id="greet-message"></p>
+        <details class="accordion" id="sort-task">
+          <summary class="side-button" id="sort-price-points">
+            Arrange Price-Points
+          </summary>
+
+          <div class="accordion-content">
+            <p class="hint" id="sort-help">
+              Use the arrow buttons to change the order, then confirm.
+            </p>
+            <ol
+              id="type-list"
+              aria-label="Ticket type order"
+              aria-describedby="sort-help"
+            ></ol>
+            <div class="actions">
+              <button class="btn" id="sort-confirm">Confirm &amp; sort</button>
+              <button class="btn btn--secondary" id="sort-reset">
+                Reset order
+              </button>
+            </div>
+            <p id="sort-status" role="status"></p>
+          </div>
+        </details>
       </main>
     </div>
 
-    <script src="index.html"></script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>

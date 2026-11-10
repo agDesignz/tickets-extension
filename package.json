@@ -4,6 +4,7 @@
   "main": "index.js",
   "author": "Alexander <alexgeorgegeer@gmail.com>",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "dev": "vite build --watch --mode development",
     "build": "vite build",

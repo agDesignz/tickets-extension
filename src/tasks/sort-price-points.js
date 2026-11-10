@@ -1,84 +1,42 @@
-// document.querySelector("body").addEventListener("click", handleSort);
-const defaultTypeOrder = [
-  "Adult",
-  "Senior",
-  "Tier",
-  "Comp/Gift",
-  "Student",
-  "Under",
-  "Blue",
-  "Season",
-  "Rush",
-  "Group",
-  "Production",
-];
-
-function sortPricePoints(typeOrder) {
-  if (!typeOrder) typeOrder = defaultTypeOrder;
+export function sortItems(types) {
   const priceItems = document.querySelector("#price_items");
-
-  const typeOrder = Object.fromEntries(
-    typeOrder.map((key, index) => [key, index]),
-  );
-  //   console.log("typeOrder"[typeOrder.Tier]);
+  if (!priceItems) return { ok: false, error: "#price_items not found" };
 
   const tiers = "piotr";
-  //   const tierOrder = Object.fromEntries(tiers.map((key, index) => [key, index]));
+  const tickets = Array.from(priceItems.children);
 
-  const tickets = Array.from(document.querySelector("#price_items").children);
+  const getType = (t) =>
+    t.querySelector("strong").textContent.trim().split(" ")[0];
 
-  function getType(tick) {
-    return tick.querySelector("strong").textContent.trim().split(" ")[0];
-  }
-
-  function getTypeLong(tick) {
-    return tick
+  const getTypeLong = (t) =>
+    t
       .querySelector("strong")
       .textContent.trim()
       .split(" ")
       .slice(0, 2)
       .join(" ");
-  }
 
-  function getPosition(tick) {
-    return typeOrder.indexOf(getType(tick)); // Returns
-  }
+  const getPosition = (t) => types.indexOf(getType(t));
 
-  function getTier(tick) {
-    const tierLetter = tick
-      .querySelectorAll("span")[1]
-      .textContent[0].toLowerCase();
-    return tiers.indexOf(tierLetter);
-  }
+  const getTier = (t) => {
+    const letter = t.querySelectorAll("span")[1]?.textContent[0]?.toLowerCase();
+    return tiers.indexOf(letter);
+  };
 
   const mainTypes = [];
   const miscTypes = [];
-
-  tickets.forEach((t) => {
-    getPosition(t) >= 0 ? mainTypes.push(t) : miscTypes.push(t);
-  });
+  tickets.forEach((t) => (getPosition(t) >= 0 ? mainTypes : miscTypes).push(t));
 
   mainTypes.sort((a, b) => {
-    if (getType(a) !== getType(b)) {
-      return getPosition(a) - getPosition(b);
-    } else if (getTypeLong(a) !== getTypeLong(b)) {
-      return getTypeLong(a) - getTypeLong(b);
-    } else {
-      return getTier(a) - getTier(b);
-    }
+    if (getType(a) !== getType(b)) return getPosition(a) - getPosition(b);
+    if (getTypeLong(a) !== getTypeLong(b))
+      return getTypeLong(a).localeCompare(getTypeLong(b));
+    return getTier(a) - getTier(b);
   });
 
-  miscTypes.sort((a, b) => {
-    return getType(a) - getType(b);
-  });
+  miscTypes.sort((a, b) => getType(a).localeCompare(getType(b)));
 
-  const ticketsSorted = [...mainTypes, ...miscTypes];
-  console.log(ticketsSorted.length);
-  ticketsSorted.forEach((el) => {
-    console.log(getTypeLong(el), getPosition(el), getTier(el));
-  });
+  [...mainTypes, ...miscTypes].forEach((t) => priceItems.appendChild(t));
 
-  ticketsSorted.forEach((t) => {
-    priceItems.appendChild(t);
-  });
+  return { ok: true, count: tickets.length };
 }

@@ -1,0 +1,242 @@
+$green-light: #afd96f;
+$green-dark: #68a50c;
+$indigo: #1800ad;
+$radius-pill: 600px;
+
+:root {
+  interpolate-size: allow-keywords; // lets block-size animate to/from auto
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  padding: 20px;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.sidepanel-header {
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  h1 {
+    font-size: 1.5rem;
+    color: #2d3436;
+  }
+}
+
+.sidepanel-logo {
+  max-width: 28px;
+}
+
+.sidepanel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.active-tab-info {
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    color: #495057;
+  }
+}
+
+#tab-url {
+  color: #28a745;
+  font-family: "Courier New", monospace;
+  word-break: break-all;
+}
+
+// Main action button (the accordion trigger)
+.side-button {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  background: linear-gradient($green-light, $green-dark);
+  color: $indigo;
+  border: none;
+  border-radius: $radius-pill;
+  cursor: pointer;
+  font-size: 1.4rem;
+  transition:
+    background 0.2s,
+    color 0.2s;
+
+  &:hover {
+    background: $indigo;
+    color: #f1f1f1;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $indigo;
+    outline-offset: 2px;
+  }
+}
+
+// Accordion
+.accordion {
+  &::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition:
+      block-size 0.3s ease,
+      content-visibility 0.3s allow-discrete;
+  }
+
+  &[open]::details-content {
+    block-size: auto;
+  }
+
+  // Chevron on the summary
+  > .side-button::after {
+    content: "▾";
+    transition: transform 0.3s ease;
+  }
+
+  &[open] > .side-button::after {
+    transform: rotate(180deg);
+  }
+}
+
+// Update .side-button so it works as a <summary>
+.side-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  list-style: none; // removes the default triangle
+  user-select: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+.hint {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: #595f66;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion::details-content,
+  .accordion > .side-button::after {
+    transition: none;
+  }
+}
+
+.accordion-content {
+  margin-top: 10px;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  ol {
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0;
+    border-bottom: 1px solid #eee;
+
+    span {
+      flex: 1;
+    }
+
+    button {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #fff;
+      cursor: pointer;
+
+      &:hover:not(:disabled) {
+        background: #eee;
+      }
+
+      &:disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 12px;
+  }
+
+  #sort-status {
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: #6c757d;
+  }
+}
+
+// Small secondary buttons inside panels
+.btn {
+  padding: 0.35rem 0.9rem;
+  background: $indigo;
+  color: #fff;
+  border: none;
+  border-radius: $radius-pill;
+  cursor: pointer;
+
+  &--secondary {
+    background: #6b7280;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-panel {
+    transition: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #2d3436;
+    color: #f8f9fa;
+  }
+
+  .sidepanel-header h1 {
+    color: #f1f1f1;
+  }
+
+  .active-tab-info,
+  .accordion-content {
+    background: #393e46;
+  }
+
+  .accordion-content li {
+    border-color: #4a4f57;
+
+    button {
+      background: #2d3436;
+      border-color: #555;
+      color: #f1f1f1;
+    }
+  }
+}

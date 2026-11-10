@@ -1,0 +1,11 @@
+{
+  "name": "ludis-pricepoint-organizer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Alexander <alexgeorgegeer@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^8.3.6",
+    "vite-plugin-web-extension": "^4.5.1"
+  }
+}

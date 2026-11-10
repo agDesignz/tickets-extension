@@ -1,21 +1,22 @@
 // document.querySelector("body").addEventListener("click", handleSort);
+const defaultTypeOrder = [
+  "Adult",
+  "Senior",
+  "Tier",
+  "Comp/Gift",
+  "Student",
+  "Under",
+  "Blue",
+  "Season",
+  "Rush",
+  "Group",
+  "Production",
+];
 
 function sortPricePoints(typeOrder) {
+  if (!typeOrder) typeOrder = defaultTypeOrder;
   const priceItems = document.querySelector("#price_items");
 
-  const typeOrder = [
-    "Adult",
-    "Senior",
-    "Tier",
-    "Comp/Gift",
-    "Student",
-    "Under",
-    "Blue",
-    "Season",
-    "Rush",
-    "Group",
-    "Production",
-  ];
   const typeOrder = Object.fromEntries(
     typeOrder.map((key, index) => [key, index]),
   );
